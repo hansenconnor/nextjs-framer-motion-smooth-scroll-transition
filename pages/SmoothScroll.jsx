@@ -36,6 +36,7 @@ const SmoothScroll = ({ children }) => {
       resizePageHeight(entries)
     );
     scrollRef && resizeObserver.observe(scrollRef.current);
+    console.log("resized");
     return () => resizeObserver.disconnect();
   }, [scrollRef, resizePageHeight]);
 
@@ -46,18 +47,17 @@ const SmoothScroll = ({ children }) => {
   const physics = { damping: 15, mass: 0.27, stiffness: 55 }; // easing of smooth scroll
   const spring = useSpring(transform, physics); // apply easing to the negative scroll value
 
-  useEffect(() => {
-    return scrollY.onChange((latest) => {
-      //   console.log(latest);
-      console.log(scrollY);
-    });
-  }, [scrollY]);
-
-  const variants = {
+  let variants = {
     hidden: { opacity: 0, x: 0, y: 64 },
     enter: { opacity: 1, x: 0, y: 0 },
     exit: { opacity: 0, x: 0, y: 64 },
   };
+
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      variants.exit.y = -scrollY.current - 128;
+    });
+  });
 
   return (
     <>
@@ -66,9 +66,9 @@ const SmoothScroll = ({ children }) => {
         animate="enter"
         exit="exit"
         variants={variants}
-        transition={{ type: "linear", duration: 1.28 }}
+        transition={{ type: "linear", duration: 1 }}
         ref={scrollRef}
-        style={{ y: spring, willChange }} // translateY of scroll container using negative scroll value
+        style={{ y: spring }} // translateY of scroll container using negative scroll value
         className="mt-12 scroll-container dark:bg-black"
       >
         {children}
@@ -79,6 +79,6 @@ const SmoothScroll = ({ children }) => {
       <div style={{ height: pageHeight }} />
     </>
   );
-};
+};;;;;
 
 export default SmoothScroll;
