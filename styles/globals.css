@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-[data-scroll-container],
-[data-scroll-section] {
-  perspective: 1px;
-}
-
-main {
-  overflow: hidden;
-}
-
 html,
 body {
   /* overflow: hidden; */
@@ -20,11 +10,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     overscroll-behavior: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
 }
 
 * {
